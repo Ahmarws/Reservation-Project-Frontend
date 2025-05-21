@@ -1,0 +1,20 @@
+.nav-link{
+    
+    color: solid #466b82;
+}
+#div1{
+    display: flex;
+    /* align-content: center; */
+    width:100% ;
+    box-shadow: 0px 4px 0px 0px #efefef ;
+    
+    padding: .5%  7% .5% 7%;
+    text-wrap: none;
+    
+}
+
+img{
+
+    object-fit: cover;
+}
+
