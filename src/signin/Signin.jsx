@@ -4,10 +4,7 @@ import "./Signin.css";
 import { useAuth } from "../authContext";
 
 const Signin = () => {
-  // useEffect(() => {
-  //   localStorage.removeItem("token");
-  //   localStorage.removeItem("userId");
-  // });
+  
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
