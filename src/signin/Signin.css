@@ -1,0 +1,60 @@
+#herodiv{
+    display: flex;
+    justify-content: center;
+    justify-items: center !important;
+ 
+    
+}
+.imgdiv{
+    display: flex;
+    align-items: center;
+     justify-content: center;
+    
+}
+img{
+   
+    height: 25%;
+    width: 25%;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    
+   
+}
+
+.p-3 {
+    padding-top: 2rem !important;
+    padding: 0 !important;
+    margin-top: 1rem;
+}
+.row{
+    
+    flex-wrap: nowrap;
+}
+.border-primary {
+    
+    border-color:#00345491 !important;
+}
+form{
+    width:32% ;
+    height: 100% ;
+    justify-items: center;
+    border-radius: 10px;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+.col-form-label{
+    margin-right: 20px;
+}
+
+
+.fa-eye {
+  /* Style the eye icon as needed */
+  font-size: 1.2em;
+  color: #777; /* Example color */
+}
+
+.fa-eye-slash {
+  /* Style the eye-slash icon as needed */
+  font-size: 1.2em;
+  color: #777; /* Example color */
+}
