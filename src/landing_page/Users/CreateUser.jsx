@@ -10,7 +10,7 @@ function CreateUser() {
 
   // const [loading, setLoading] = useState("false");
 
-  const handleLogin = async (e) => {
+  const handleCreateUser = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const requestBody = {
@@ -47,8 +47,8 @@ function CreateUser() {
 
   return (
     <div className="p-3" id="herodiv">
-      <form className="form-signin border border-primary rounded">
-        <h2>Create User</h2>
+      <form className="form-signup border border-primary rounded">
+        <h2>Add User</h2>
         <p>Please enter your credetials!</p>
         <div className="row mb-3">
           <label htmlFor="name" className="col-sm-2 col-form-label">
@@ -164,11 +164,11 @@ function CreateUser() {
           type="submit"
           className="btn btn-primary"
           style={{ backgroundColor: "#003454" }}
-          onClick={handleLogin}
+          onClick={handleCreateUser}
           // disabled={loading}
         >
           {/* {loading ? "..." : "Login"} */}
-          Sign in
+          Add User
         </button>
         <br />
       </form>

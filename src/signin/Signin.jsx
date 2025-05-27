@@ -41,16 +41,19 @@ const Signin = () => {
       console.log("Fetch response:", response);
       
       const resData = await response.json();
-      if (resData.data && resData.data.login) {
-        localStorage.setItem("token", resData.data.login.token);
-        localStorage.setItem("userId", resData.data.login.userId);
-        setCurrentUser(resData.data.login.userId);
-       
-       window.location.href = "/";
-      } else {
-        // handle login error
-        console.error("Login failed", resData.errors);
-      }
+        if (resData.data && resData.data.login) {
+          localStorage.setItem("token", resData.data.login.token);
+          localStorage.setItem("userId", resData.data.login.userId);
+          // Store expiration timestamp as current time + tokenExpiration (seconds to ms)
+          const expirationTimestamp = new Date().getTime() + 3600000 ;
+          localStorage.setItem("tokenExpiration", expirationTimestamp.toString());
+          setCurrentUser(resData.data.login.userId);
+         
+         window.location.href = "/";
+        } else {
+          // handle login error
+          console.error("Login failed", resData.errors);
+        }
       // setLoading(false);
     } catch (err) {
       console.error(err);

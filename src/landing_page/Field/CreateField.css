@@ -1,0 +1,116 @@
+#herodivcrfield{
+    display: flex;
+    justify-content: center;
+    justify-items: center !important;
+ 
+    
+}
+
+
+.p-3 {
+    padding-top: 1% !important;
+    padding: 0 !important;
+    margin-top: 1rem;
+}
+.row{
+    
+    /* flex-wrap: nowrap; */
+    width: 60%;
+    max-width: 60% !important;
+    margin-left: -9rem;
+  
+}
+.border-primary {
+    
+    border-color:#00345491 !important;
+}
+form{
+    width:35% ;
+    height: 100% ;    
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    overflow: hidden !important;
+}
+form div .row .mb-3{
+  width: 100% !important;
+  height: 100%;
+  display: flex;
+}
+label.col-sm-2.col-form-label{
+    margin-right: 5rem !important;
+    display: block !important;
+}
+
+.p-checkbox-box{
+  display: none;
+}
+span{
+  padding-left: .2rem !important;
+}
+.button-margin-collapsed {
+  margin-top: 37vh !important;
+  transition: margin-top 0.3s ease;
+}
+
+.p-multiselect-item{
+  align-content: center;
+  align-items: center;
+  border: solid 1px #ccc !important;
+  padding:  .2rem .3rem;
+  margin: .2rem;
+  border-radius: 5px;
+  }
+
+.p-multiselect-select-all {
+  display: flex !important;
+  
+}
+.p-multiselect-header{
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+}
+ul.p-multiselect-items.p-component{
+  padding-left: 0 !important;  
+  /* padding-left: -10rem !important; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-height: 100%;
+  overflow-y: auto;
+  gap: 4px 8px;
+  padding: 02 8px;
+  box-sizing: border-box;
+  /* margin-left: -10px; */
+}
+div.p-multiselect-items-wrapper{
+  height: 25%;
+}
+div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-done{
+ 
+  margin-top: 1rem !important;
+  border: 1px solid #ccc !important;
+
+  /* border: none !important; */
+  border-radius: 4px;
+  background-color: white !important;
+  padding: 0rem .5rem 1rem .5rem ;
+  align-self: stretch;
+  left: 44vw !important;
+  overflow: hidden;
+}
+
+
+
+
+.form-signin {
+  transition: max-height 0.3s ease;
+  overflow: visible;
+  max-height: 100%; /* default height */
+}
+
+.form-signin.expanded button {
+  max-height: 100%; /* increased height to fit dropdown */
+}
+label{
+  position: left;
+}
