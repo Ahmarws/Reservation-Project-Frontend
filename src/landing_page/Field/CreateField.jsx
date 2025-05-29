@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import "./CreateField.css";
 import { MultiSelect } from "primereact/multiselect";
-import timeDemo from "./time";
 
 function CreateField() {
-  const [fieldName, setFieldName] = useState(null);
-  const [subFieldName, setSubFieldName] = useState(null);
-  const [role, setRole] = useState(null);
-
-  const [selectedTimes, setSelectedTimes] = useState(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const [fieldName, setFieldName] = useState("");
   const [subFieldInputs, setSubFieldInputs] = useState([""]);
+  const [selectedTimes, setSelectedTimes] = useState([""]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleAddInput = () => {
     setSubFieldInputs([...subFieldInputs, ""]);
@@ -24,63 +19,97 @@ function CreateField() {
   };
 
   const times = [
-    { time: "01:00 am", value: "01:00" },
-    { time: "02:00 am", value: "02:00" },
-    { time: "03:00 am", value: "03:00" },
-    { time: "04:00 am", value: "04:00" },
-    { time: "05:00 am", value: "05:00" },
-    { time: "06:00 am", value: "06:00" },
-    { time: "07:00 am", value: "07:00" },
-    { time: "08:00 am", value: "08:00" },
-    { time: "09:00 am", value: "09:00" },
-    { time: "10:00 am", value: "10:00" },
-    { time: "11:00 am", value: "11:00" },
-    { time: "12:00 pm", value: "12:00" },
-    { time: "01:00 pm", value: "01:00" },
-    { time: "02:00 pm", value: "02:00" },
-    { time: "03:00 pm", value: "03:00" },
-    { time: "04:00 pm", value: "04:00" },
-    { time: "05:00 pm", value: "05:00" },
-    { time: "06:00 pm", value: "06:00" },
-    { time: "07:00 pm", value: "07:00" },
-    { time: "08:00 pm", value: "08:00" },
-    { time: "09:00 pm", value: "09:00" },
-    { time: "10:00 pm", value: "10:00" },
-    { time: "11:00 pm", value: "11:00" },
-    { time: "12:00 am", value: "12:00" },
+    { time: "01:00 am", value: "01:00 am" },
+    { time: "02:00 am", value: "02:00 am" },
+    { time: "03:00 am", value: "03:00 am" },
+    { time: "04:00 am", value: "04:00 am" },
+    { time: "05:00 am", value: "05:00 am" },
+    { time: "06:00 am", value: "06:00 am" },
+    { time: "07:00 am", value: "07:00 am" },
+    { time: "08:00 am", value: "08:00 am" },
+    { time: "09:00 am", value: "09:00 am" },
+    { time: "10:00 am", value: "10:00 am" },
+    { time: "11:00 am", value: "11:00 am" },
+    { time: "12:00 pm", value: "12:00 pm" },
+    { time: "01:00 pm", value: "01:00 pm" },
+    { time: "02:00 pm", value: "02:00 pm" },
+    { time: "03:00 pm", value: "03:00 pm" },
+    { time: "04:00 pm", value: "04:00 pm" },
+    { time: "05:00 pm", value: "05:00 pm" },
+    { time: "06:00 pm", value: "06:00 pm" },
+    { time: "07:00 pm", value: "07:00 pm" },
+    { time: "08:00 pm", value: "08:00 pm" },
+    { time: "09:00 pm", value: "09:00 pm" },
+    { time: "10:00 pm", value: "10:00 pm" },
+    { time: "11:00 pm", value: "11:00 pm" },
+    { time: "12:00 am", value: "12:00 am" },
   ];
-
-  // const [loading, setLoading] = useState("false");
 
   const handleFieldCreate = async (e) => {
     e.preventDefault();
-    //    const token = localStorage.getItem("token");
-    //    const requestBody = {
-    //      query: `
-    //         mutation {
-    //        createUser(userInput:{name:"${name}", email:"${email}", password:"${password}", role:"${role}"}) {
-    //          id
-    //            name
-    //          }
-    //          }
 
-    //         `,
-    //    };
-    //    try {
-    //      await fetch("http://localhost:3000/graphql", {
-    //        method: "POST",
-    //        body: JSON.stringify(requestBody),
-    //        headers: {
-    //          "Content-Type": "application/json",
-    //          Authorization: token ? "Bearer " + token : "",
-    //        },
-    //      });
-    //      alert("User created successfully");
-    //      window.location.href = "/user";
-    //    } catch (err) {
-    //      console.error(err);
-    //      alert("User Creation Failed");
-    //    }
+    const token = localStorage.getItem("token");
+    // Build subFields array of objects with SubFieldname property
+    const subFields = subFieldInputs
+      .filter((name) => name.trim() !== "")
+      .map((name) => ({ SubFieldname: name }));
+
+    // Build timeRanges array of objects with availableHours property
+    const timeRanges = selectedTimes.map((time) => ({
+      availableHours: time,
+    }));
+
+    const toGraphQLInput = (arr) => {
+      return `[${arr
+        .map(
+          (obj) =>
+            `{${Object.entries(obj)
+              .map(([key, val]) => `${key}: "${val}"`)
+              .join(", ")}}`
+        )
+        .join(", ")}]`;
+    };
+
+    const subFieldsInput = toGraphQLInput(subFields);
+    const timeRangesInput = toGraphQLInput(timeRanges);
+
+    const requestBody = {
+      query: `
+          mutation {
+            createField(fieldInput: {
+              fieldName: "${fieldName}",
+              subFields: ${subFieldsInput},
+              timeRanges: ${timeRangesInput}
+            }) {
+              fieldName
+              subFields { SubFieldname }
+              timeRanges { availableHours }
+            }
+          }
+        `,
+    };
+    try {
+      const response = await fetch("http://localhost:3000/graphql", {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? "Bearer " + token : "",
+        },
+      });
+      const result = await response.json();
+
+      if (result.errors) {
+        console.error(result.errors);
+        alert("Field creation failed");
+      } else {
+        alert("Field added successfully");
+        window.location.href = "/field";
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Field creation failed");
+    }
   };
 
   return (
@@ -106,8 +135,9 @@ function CreateField() {
               className="form-control"
               id="inputfieldName"
               data-has-listeners="true"
-              value={fieldName || ""}
+              value={fieldName}
               onChange={(e) => setFieldName(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -120,15 +150,19 @@ function CreateField() {
           </label>
           <div className="col-sm-10">
             {subFieldInputs.map((input, index) => (
-              <div style={{marginTop:".2rem", marginBottom:".2rem"}} key={index}>
+              <div
+                style={{ marginTop: ".2rem", marginBottom: ".2rem" }}
+                key={index}
+              >
                 <input
                   type="text"
                   value={input}
                   name="subfieldname"
                   className="form-control "
-                  id="inputSubFieldName"
+                  id={`inputSubFieldName${index}`}
                   data-has-listeners="true"
                   onChange={(event) => handleInputChange(index, event)}
+                  required
                 />
               </div>
             ))}
@@ -136,14 +170,14 @@ function CreateField() {
               className="fa-regular fa-plus"
               onClick={handleAddInput}
               style={{
-                zIndex:"1000",
+                zIndex: "1000",
                 position: "absolute",
                 right: "auto",
                 top: "41vh",
-                left:"61vw",
+                left: "61vw",
                 cursor: "pointer",
-               
               }}
+              title="Add Sub-Field"
             ></i>
           </div>
         </div>
@@ -154,12 +188,12 @@ function CreateField() {
 
           <div className="flex card justify-content-center col-sm-10">
             <MultiSelect
-              value={selectedTimes}
+              value={selectedTimes || ""}
               onChange={(e) => setSelectedTimes(e.value)}
               options={times}
               optionLabel="time"
               placeholder="Select Time"
-              maxSelectedLabels={23}
+              maxSelectedLabels={24}
               className="w-full md:w-20rem "
               onShow={() => setDropdownOpen(true)}
               onHide={() => setDropdownOpen(false)}
@@ -174,9 +208,7 @@ function CreateField() {
           }`}
           style={{ backgroundColor: "#003454" }}
           onClick={handleFieldCreate}
-          // disabled={loading}
         >
-          {/* {loading ? "..." : "Login"} */}
           Add Field
         </button>
         <br />
